@@ -1,21 +1,19 @@
-//
+// 
+// Set beginning status of game, including starting player and game board.
 
 const statusDisplay = document.querySelector('.status');
-
 let gameActive = true;
-
 let currentPlayer = "X";
-
 let gameState = ["", "", "", "", "", "", "", "", ""];
 
+// Status messages. 
 const winningMessage = () => `Player ${currentPlayer} has won!`;
 const drawMessage = () => `Game ended in a draw!`;
 const currentPlayerTurn = () => `It's ${currentPlayer}'s turn`;
-
 statusDisplay.innerHTML = currentPlayerTurn();
 
 document.querySelectorAll('.cell').forEach(cell => cell.addEventListener('click', cellClick));
-document.querySelector('.newgame').addEventListener('click', handleRestartGame);
+document.querySelector('.newgame').addEventListener('click', newGame);
 
 function cellClick(clickedCellEvent) {   
         const clickedCell = clickedCellEvent.target;
@@ -75,15 +73,15 @@ function handleCellPlayed(clickedCell, clickedCellIndex) {
         return;
     }
 
-    handlePlayerChange();
+    changePlayer();
 }
 
-function handlePlayerChange() {
+function changePlayer() {
     currentPlayer = currentPlayer === "X" ? "O" : "X";
     statusDisplay.innerHTML = currentPlayerTurn();
 }
-
-function handleRestartGame() {
+// Start a new game function.
+function newGame() {
     gameActive = true;
     currentPlayer = "X";
     gameState = ["", "", "", "", "", "", "", "", ""];
