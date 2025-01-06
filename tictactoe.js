@@ -1,4 +1,3 @@
-// 
 // Set beginning status of game, including starting player and game board.
 
 const statusDisplay = document.querySelector('.status');
@@ -12,9 +11,12 @@ const drawMessage = () => `Game ended in a draw!`;
 const currentPlayerTurn = () => `It's ${currentPlayer}'s turn`;
 statusDisplay.innerHTML = currentPlayerTurn();
 
+// Query selectors for clicking the cells and New Game button.
 document.querySelectorAll('.cell').forEach(cell => cell.addEventListener('click', cellClick));
 document.querySelector('.newgame').addEventListener('click', newGame);
 
+// Identify which cell is clicked, whether it already has been clicked, and 
+// call the funcitons that play the cell and check for win.
 function cellClick(clickedCellEvent) {   
         const clickedCell = clickedCellEvent.target;
         const clickedCellIndex = parseInt(
@@ -25,11 +27,12 @@ function cellClick(clickedCellEvent) {
             return;
         }
    
-        handleCellPlayed(clickedCell, clickedCellIndex);
-        handleResultValidation();
+        playCell(clickedCell, clickedCellIndex);
+        validateResults();
 }
 
-function handleCellPlayed(clickedCell, clickedCellIndex) {
+// Check for a win or draw, or next player in the game.
+function playCell(clickedCell, clickedCellIndex) {
     
         gameState[clickedCellIndex] = currentPlayer;
         clickedCell.innerHTML = currentPlayer;
@@ -45,7 +48,7 @@ function handleCellPlayed(clickedCell, clickedCellIndex) {
         [0, 4, 8],
         [2, 4, 6]
     ];
-    function handleResultValidation() {
+    function validateResults() {
         let roundWon = false;
         for (let i = 0; i <= 7; i++) {
             const winCondition = winningConditions[i];
@@ -76,6 +79,7 @@ function handleCellPlayed(clickedCell, clickedCellIndex) {
     changePlayer();
 }
 
+// Determine current player and indicate that to the user(s). 
 function changePlayer() {
     currentPlayer = currentPlayer === "X" ? "O" : "X";
     statusDisplay.innerHTML = currentPlayerTurn();

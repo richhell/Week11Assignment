@@ -30,6 +30,10 @@ section {
     line-height: 50px;
     font-size: 20px;
 }
+
+.status {
+    font-family: "Arial", sans-serif;
+}
 button {
     margin-bottom: 20px;
     height: 30px;
